@@ -58,6 +58,8 @@
 #include "modnetwork.h"
 #include "mpthreadport.h"
 
+#include "micropython_main.h"
+
 #if MICROPY_BLUETOOTH_NIMBLE
 #include "extmod/modbluetooth.h"
 #endif
@@ -161,8 +163,8 @@ soft_reset:
     fflush(stdout);
     goto soft_reset;
 }
-
-void app_main(void) {
+// MOD: rename app_main to start_mp
+void start_mp(void) {
     esp_err_t ret = nvs_flash_init();
     if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
         nvs_flash_erase();
