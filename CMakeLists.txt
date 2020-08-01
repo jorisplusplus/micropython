@@ -208,10 +208,12 @@ set(srcs
     "extmod/uos_dupterm.c" 
     "lib/embed/abort_.c" 
     "lib/utils/printf.c"
-    
-    "frozen_content.c"
+
+    "${COMPONENT_DIR}/ports/esp32/build-GENERIC/frozen_content.c"
 )
 
+file(MAKE_DIRECTORY ports/esp32/build-GENERIC)
+file(MAKE_DIRECTORY ports/esp32/build-GENERIC/genhdr)
 
 set(includes
     "./"
@@ -220,13 +222,19 @@ set(includes
     "lib/timeutils"
     "lib/netutils"
     "lib/mp-readline"
-    "genhdr"
+    "ports/esp32/build-GENERIC/genhdr"
+    "ports/esp32/build-GENERIC"
     )
-
-
 
 idf_component_register(SRCS "${srcs}"
                        INCLUDE_DIRS ${includes}
                        REQUIRES mbedtls ulp app_update fatfs mdns nvs_flash bt)
 
 target_compile_options(${COMPONENT_LIB} PRIVATE -DMICROPY_VFS_FAT -DMICROPY_PY_BLUETOOTH=1 -DMICROPY_BLUETOOTH_NIMBLE=1 -DFFCONF_H=\"lib/oofatfs/ffconf.h\" -DMICROPY_ESP_IDF_4 -DMICROPY_VFS_LFS2=1 -DLFS2_NO_MALLOC -DLFS2_NO_DEBUG -DLFS2_NO_WARN -DLFS2_NO_ERROR -DLFS2_NO_ASSERT)
+
+
+add_custom_command(
+    OUTPUT ${COMPONENT_DIR}/ports/esp32/build-GENERIC/frozen_content.c
+    COMMAND make build-GENERIC/frozen_content.c
+    WORKING_DIRECTORY ${COMPONENT_DIR}/ports/esp32
+)
