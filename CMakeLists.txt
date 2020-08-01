@@ -15,7 +15,6 @@ set(srcs
     "ports/esp32/uart.c"
     "ports/esp32/gccollect.c"
     "ports/esp32/mphalport.c"
-    "ports/esp32/fatfs_port.c"
     "ports/esp32/help.c"
     "ports/esp32/modutime.c"
     "ports/esp32/moduos.c"
