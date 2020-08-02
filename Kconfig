@@ -1,0 +1,7 @@
+menu "MicroPython"
+	config MICROPY_STACK_SIZE
+		int "Stack size for MicroPython task"
+		default 16384
+		help
+			Hardware board mame
+endmenu
