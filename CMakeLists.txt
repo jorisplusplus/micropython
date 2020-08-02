@@ -229,11 +229,10 @@ idf_component_register(SRCS "${srcs}"
                        INCLUDE_DIRS ${includes}
                        REQUIRES mbedtls ulp app_update fatfs mdns nvs_flash bt)
 
-target_compile_options(${COMPONENT_LIB} PRIVATE -DMICROPY_VFS_FAT -DMICROPY_PY_BLUETOOTH=1 -DMICROPY_BLUETOOTH_NIMBLE=1 -DFFCONF_H=\"lib/oofatfs/ffconf.h\" -DMICROPY_ESP_IDF_4 -DMICROPY_VFS_LFS2=1 -DLFS2_NO_MALLOC -DLFS2_NO_DEBUG -DLFS2_NO_WARN -DLFS2_NO_ERROR -DLFS2_NO_ASSERT)
-
+target_compile_options(${COMPONENT_LIB} PRIVATE -DMICROPY_VFS_FAT -DMICROPY_PY_BLUETOOTH=1 -DMICROPY_BLUETOOTH_NIMBLE=1 -DFFCONF_H=\"lib/oofatfs/ffconf.h\" -DMICROPY_ESP_IDF_4=1 -DMICROPY_VFS_LFS2=1 -DLFS2_NO_MALLOC -DLFS2_NO_DEBUG -DLFS2_NO_WARN -DLFS2_NO_ERROR -DLFS2_NO_ASSERT)
 
 add_custom_command(
     OUTPUT ${COMPONENT_DIR}/ports/esp32/build-GENERIC/frozen_content.c
-    COMMAND make build-GENERIC/frozen_content.c
+    COMMAND echo extmods: ${EXTMODS} && make clean && make build-GENERIC/frozen_content.c SRC_MOD=/"${EXTMODS}/"
     WORKING_DIRECTORY ${COMPONENT_DIR}/ports/esp32
 )
