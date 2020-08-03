@@ -237,8 +237,11 @@ target_compile_options(${COMPONENT_LIB} PRIVATE
         -DMICROPY_ESP_IDF_4=1
         -DMICROPY_VFS_LFS2=1 -DLFS2_NO_MALLOC -DLFS2_NO_DEBUG -DLFS2_NO_WARN -DLFS2_NO_ERROR -DLFS2_NO_ASSERT)
 
+message(STATUS "mp enabled")
+
 add_custom_command(
-    OUTPUT ${COMPONENT_DIR}/ports/esp32/build-GENERIC/frozen_content.c
-    COMMAND echo extmods: ${EXTMODS} && make clean && make build-GENERIC/frozen_content.c SRC_MOD=/"${EXTMODS}/"
+    OUTPUT
+        ${COMPONENT_DIR}/ports/esp32/build-GENERIC/frozen_content.c
+    COMMAND echo extmods: ${EXTMODS} && python3 ../../mpconfigover_generator.py -b ./ \"${EXTMODS_NAMES}\" && make clean && make build-GENERIC/frozen_content.c SRC_MOD=\"${EXTMODS}\"
     WORKING_DIRECTORY ${COMPONENT_DIR}/ports/esp32
 )
