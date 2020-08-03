@@ -163,10 +163,8 @@
 #define MICROPY_PY_BLUETOOTH_RANDOM_ADDR    (1)
 #define MICROPY_PY_BLUETOOTH_DEFAULT_GAP_NAME ("ESP32")
 
-#ifndef NO_QSTR
-// Custom modules and config overrides, built by main firmware CMakeLists.txt
-#include "mpconfigoverrides.h"
-#endif
+
+
 
 // fatfs configuration
 #define MICROPY_FATFS_ENABLE_LFN            (1)
@@ -195,6 +193,9 @@ extern const struct _mp_obj_module_t mp_module_usocket;
 extern const struct _mp_obj_module_t mp_module_machine;
 extern const struct _mp_obj_module_t mp_module_network;
 extern const struct _mp_obj_module_t mp_module_onewire;
+
+// Custom modules and config overrides, built by main firmware CMakeLists.txt
+#include "mpconfigoverrides.h"
 
 #define MICROPY_PORT_BUILTIN_MODULES \
     { MP_OBJ_NEW_QSTR(MP_QSTR_esp), (mp_obj_t)&esp_module }, \
