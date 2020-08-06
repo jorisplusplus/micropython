@@ -242,6 +242,6 @@ message(STATUS "mp enabled")
 add_custom_command(
     OUTPUT
         ${COMPONENT_DIR}/ports/esp32/build-GENERIC/frozen_content.c
-    COMMAND echo extmods: ${EXTMODS} && python3 ../../mpconfigover_generator.py -b ./ \"${EXTMODS_NAMES}\" && make clean && make build-GENERIC/frozen_content.c SRC_MOD=\"${EXTMODS}\" FROZEN_MANIFEST=\"${PROJECT_DIR}/manifests/${CONFIG_MANIFEST}\" PORT_DIR_EXTERNAL=\"${PROJECT_DIR}/modules\"
+    COMMAND echo extmods: ${EXTMODS} && python3 ../../mpconfigover_generator.py -b ./ \"${EXTMODS_NAMES}\" && make clean && make build-GENERIC/frozen_content.c SRC_MOD=\"${EXTMODS}\" FROZEN_MANIFEST=\"${PROJECT_DIR}/../manifests/${INFO_HARDWARE_MANIFEST}\" PORT_DIR_EXTERNAL=\"${PROJECT_DIR}/../python_modules\" BOARD_DIR=\"${PROJECT_DIR}/../python_modules/${CONFIG_INFO_HARDWARE_FOLDER}\"
     WORKING_DIRECTORY ${COMPONENT_DIR}/ports/esp32
 )
